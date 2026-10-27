@@ -1,3 +1,4 @@
+[hidden]{display:none!important}
 :root{color-scheme:dark;--bg:#12141a;--card:#1b1e27;--fg:#e6e8ee;--mut:#8a90a0;--up:#3ecf8e;--dn:#ef5b5b}
 @media(prefers-color-scheme:light){:root[data-light]{color-scheme:light}}
 *{box-sizing:border-box}

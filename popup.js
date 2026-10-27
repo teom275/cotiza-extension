@@ -17,7 +17,7 @@ function render(c, s) {
   $('badgeRow').hidden = !(s.base === 'ARS' && s.quote === 'USD');
   if (c.fx?.kind === 'ars') {
     $('badge').replaceChildren(...c.fx.rows.map((r) => Object.assign(el('option', '', esc(r.nombre)), { value: r.casa, selected: r.casa === s.badge })));
-    for (const r of c.fx.rows) fx.append(el('div', 'row', `<div class="n">${esc(r.nombre)}<small>compra ${fmt(r.compra, 0)}</small></div><div class="v"><b>$${fmt(r.venta, 0)}</b></div>`));
+    for (const r of c.fx.rows) fx.append(el('div', 'row', `<div class="n">${esc(r.nombre)}<small>${r.compra ? `compra ${fmt(r.compra, 0)}` : "&nbsp;"}</small></div><div class="v"><b>$${fmt(r.venta, 0)}</b></div>`));
   } else if (c.fx?.kind === 'pair') {
     fx.append(el('div', 'row', `<div class="n">1 ${s.base}<small>1 ${s.quote} = ${fmt(1 / c.fx.rate, 4)} ${s.base}</small></div><div class="v"><b>${fmt(c.fx.rate, 4)} ${s.quote}</b></div>`));
   }
