@@ -9,6 +9,7 @@
     "https://cdn.jsdelivr.net/npm/@fawazahmed0/*",
     "https://query1.finance.yahoo.com/*"
   ],
+  "optional_host_permissions": ["https://finnhub.io/*"],
   "background": { "service_worker": "background.js", "scripts": ["common.js", "background.js"] },
   "action": { "default_popup": "popup.html", "default_title": "Cotiza" },
   "icons": { "128": "icons/icon.png" },

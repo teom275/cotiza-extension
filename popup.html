@@ -5,6 +5,8 @@
 <section id="settings" hidden>
   <label>Mi moneda <select id="base"></select></label>
   <label>Comparar con <select id="quote"></select></label>
+  <label>Stocks desde <select id="provider"><option value="yahoo">Yahoo (sin key)</option><option value="finnhub">Finnhub (tu key)</option></select></label>
+  <label id="keyRow" hidden>API key <input id="key" type="password" placeholder="Finnhub key" autocomplete="off"></label>
   <label id="badgeRow">Badge <select id="badge"></select></label>
 </section>
 <section id="fx"></section>

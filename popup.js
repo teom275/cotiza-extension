@@ -27,6 +27,7 @@ function render(c, s) {
     const d = k.price - k.prev, pct = (d / k.prev) * 100, up = d >= 0;
     st.append(el('div', 'row', `<div class="n">${esc(k.sym)}<small>${esc(k.currency || '')}</small></div>${spark(k.spark, up)}<div class="v"><b>${fmt(k.price)}</b><small class="${up ? 'up' : 'dn'}" style="display:block">${up ? '+' : ''}${fmt(pct)}%</small></div><button class="x" data-s="${esc(k.sym)}">✕</button>`));
   }
+  for (const row of st.children) { row.draggable = true; row.dataset.s = row.querySelector('.x').dataset.s; }
 }
 
 async function load(force) {
@@ -40,6 +41,26 @@ async function load(force) {
     $(id).replaceChildren(...CUR.map((c) => Object.assign(el('option', '', c), { value: c, selected: c === s[id] })));
     $(id).onchange = async () => { await chrome.storage.local.set({ [id]: $(id).value }); load(true); };
   }
+  $('provider').value = s.provider; $('keyRow').hidden = s.provider !== 'finnhub'; $('key').value = s.finnhubKey;
+  $('provider').onchange = async () => {
+    const p = $('provider').value;
+    // Finnhub es un permiso opcional: se pide recién cuando lo elegís.
+    if (p === 'finnhub' && !(await chrome.permissions.request({ origins: ['https://finnhub.io/*'] }))) { $('provider').value = 'yahoo'; return; }
+    $('keyRow').hidden = p !== 'finnhub';
+    await chrome.storage.local.set({ provider: p }); load(true);
+  };
+  $('key').onchange = async () => { await chrome.storage.local.set({ finnhubKey: $('key').value.trim() }); load(true); };
+  let drag;
+  $('stocks').ondragstart = (e) => { drag = e.target.closest('.row')?.dataset.s; };
+  $('stocks').ondragover = (e) => { if (drag) e.preventDefault(); };
+  $('stocks').ondrop = async (e) => {
+    const to = e.target.closest('.row')?.dataset.s;
+    if (!drag || !to || drag === to) return;
+    const t = (await getSettings()).tickers, i = t.indexOf(to);
+    t.splice(t.indexOf(drag), 1);
+    t.splice(i, 0, drag);
+    drag = null; await chrome.storage.local.set({ tickers: t }); load(true);
+  };
   $('badge').onchange = () => chrome.storage.local.set({ badge: $('badge').value });
   $('cfg').onclick = () => { $('settings').hidden = !$('settings').hidden; };
   $('stocks').onclick = async (e) => {

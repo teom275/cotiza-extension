@@ -1,5 +1,5 @@
 // Código compartido entre background y popup. Sin dependencias.
-const DEFAULTS = { base: 'ARS', quote: 'USD', badge: 'blue', tickers: ['SPY', 'QQQ'] };
+const DEFAULTS = { base: 'ARS', quote: 'USD', badge: 'blue', tickers: ['SPY', 'QQQ'], provider: 'yahoo', finnhubKey: '' };
 const TTL = 60 * 1000;
 
 const getSettings = async () => ({ ...DEFAULTS, ...(await chrome.storage.local.get(Object.keys(DEFAULTS))) });
@@ -21,6 +21,14 @@ async function fetchFx({ base, quote }) {
   return { kind: 'pair', rate };
 }
 
+async function fetchFinnhub(sym, key) {
+  const r = await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(sym)}`, { credentials: 'omit', cache: 'no-store', headers: { 'X-Finnhub-Token': key } });
+  if (!r.ok) throw new Error(r.status);
+  const d = await r.json();
+  if (!d.c) throw new Error('no encontrado');
+  return { sym, price: d.c, prev: d.pc, currency: 'USD', spark: [] };
+}
+
 async function fetchStock(sym) {
   const d = await getJSON(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?range=1mo&interval=1d`);
   const res = d.chart?.result?.[0];
@@ -37,9 +45,9 @@ async function fetchStock(sym) {
 async function refresh(force) {
   const s = await getSettings();
   const { cache } = await chrome.storage.local.get('cache');
-  const key = JSON.stringify([s.base, s.quote, s.tickers]);
+  const key = JSON.stringify([s.base, s.quote, s.tickers, s.provider, s.finnhubKey]);
   if (!force && cache && cache.key === key && Date.now() - cache.t < TTL) return cache;
-  const [fx, ...st] = await Promise.allSettled([fetchFx(s), ...s.tickers.map(fetchStock)]);
+  const [fx, ...st] = await Promise.allSettled([fetchFx(s), ...s.tickers.map((t) => (s.provider === 'finnhub' && s.finnhubKey ? fetchFinnhub(t, s.finnhubKey) : fetchStock(t)))]);
   const out = {
     key, t: Date.now(),
     fx: fx.status === 'fulfilled' ? fx.value : cache?.fx,

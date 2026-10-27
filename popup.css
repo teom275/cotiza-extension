@@ -16,7 +16,7 @@ select,input{background:var(--card);color:var(--fg);border:1px solid #2a2e3a;bor
 .row .v{text-align:right;font-variant-numeric:tabular-nums}
 .up{color:var(--up)}.dn{color:var(--dn)}
 svg{width:56px;height:22px}
-.x{opacity:0}.row:hover .x{opacity:1}
+.row[draggable]{cursor:grab}.row.over{outline:1px dashed var(--mut)}.x{opacity:0}.row:hover .x{opacity:1}
 #add{display:flex;gap:6px;padding:4px 12px 8px}#add input{flex:1}
 footer{padding:6px 12px 10px;color:var(--mut);font-size:10px}
 .err{color:var(--dn);font-size:11px;padding:0 12px 6px}
