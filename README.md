@@ -1,6 +1,7 @@
 # Cotiza
 
 Extensión de navegador (Chrome y Firefox) con la cotización del dólar y tus stocks. Modo oscuro, liviana, sin tracking.
+https://chromewebstore.google.com/detail/cotiza/aeclnjcpeompllakmijodjikiillnfek
 
 ## Privacidad
 - Sin analytics, sin cuentas, sin servidor propio, sin código remoto.
