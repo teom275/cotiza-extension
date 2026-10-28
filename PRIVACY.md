@@ -3,14 +3,13 @@
 **Cotiza no recopila, almacena en servidores ni transmite datos personales a su desarrollador ni a terceros con fines propios.** No hay analytics, cuentas, anuncios ni telemetría.
 
 ## Qué se guarda y dónde
-Tu configuración (moneda, tickers, proveedor de stocks, API key de Finnhub si la ingresás) y un caché de precios se guardan únicamente en `storage.local` de tu navegador. Nunca salen de tu dispositivo, salvo la API key, que se envía solo a Finnhub si elegís ese proveedor.
+Tu configuración (moneda, tickers y preferencias) y un caché de precios se guardan únicamente en `storage.local` de tu navegador. Nunca salen de tu dispositivo.
 
 ## Con quién se comunica la extensión
 Para mostrar cotizaciones, el navegador hace pedidos directos a estas APIs públicas:
 - `dolarapi.com` (dólar en Argentina)
 - `cdn.jsdelivr.net` (pares de monedas, currency-api)
 - `query1.finance.yahoo.com` (stocks, proveedor por defecto)
-- `finnhub.io` (stocks, opcional y solo si lo activás con tu propia key)
 
 Estos servicios pueden ver tu dirección IP y los tickers o monedas consultados, como ocurre al visitar cualquier sitio web. Cotiza no controla sus políticas de privacidad.
 

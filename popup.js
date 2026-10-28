@@ -47,15 +47,6 @@ async function load(force) {
     $(id).replaceChildren(...CUR.map((c) => Object.assign(el('option', '', c), { value: c, selected: c === s[id] })));
     $(id).onchange = async () => { await chrome.storage.local.set({ [id]: $(id).value }); load(true); };
   }
-  $('provider').value = s.provider; $('keyRow').hidden = s.provider !== 'finnhub'; $('key').value = s.finnhubKey;
-  $('provider').onchange = async () => {
-    const p = $('provider').value;
-    // Finnhub es un permiso opcional: se pide recién cuando lo elegís.
-    if (p === 'finnhub' && !(await chrome.permissions.request({ origins: ['https://finnhub.io/*'] }))) { $('provider').value = 'yahoo'; return; }
-    $('keyRow').hidden = p !== 'finnhub';
-    await chrome.storage.local.set({ provider: p }); load(true);
-  };
-  $('key').onchange = async () => { await chrome.storage.local.set({ finnhubKey: $('key').value.trim() }); load(true); };
   let drag;
   $('stocks').ondragstart = (e) => { drag = e.target.closest('.stock')?.dataset.s; };
   $('stocks').ondragover = (e) => { if (drag) e.preventDefault(); };

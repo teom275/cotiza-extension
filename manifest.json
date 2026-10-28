@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Cotiza",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Dólar y stocks en tu barra. Sin tracking, sin cuentas, 100% open source.",
   "permissions": ["storage", "alarms"],
   "host_permissions": [
@@ -9,7 +9,6 @@
     "https://cdn.jsdelivr.net/npm/@fawazahmed0/*",
     "https://query1.finance.yahoo.com/*"
   ],
-  "optional_host_permissions": ["https://finnhub.io/*"],
   "background": { "service_worker": "background.js", "scripts": ["common.js", "background.js"] },
   "action": { "default_popup": "popup.html", "default_title": "Cotiza" },
   "icons": { "128": "icons/icon.png" },
