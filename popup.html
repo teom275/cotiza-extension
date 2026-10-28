@@ -1,18 +1,29 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><link rel="stylesheet" href="popup.css"></head>
 <body>
-<header><b>Cotiza</b><span id="upd"></span><button id="cfg" title="Ajustes">⚙</button></header>
-<section id="settings" hidden>
-  <label>Mi moneda <select id="base"></select></label>
-  <label>Comparar con <select id="quote"></select></label>
-  <label>Stocks desde <select id="provider"><option value="yahoo">Yahoo (sin key)</option><option value="finnhub">Finnhub (tu key)</option></select></label>
-  <label id="keyRow" hidden>API key <input id="key" type="password" placeholder="Finnhub key" autocomplete="off"></label>
-  <label id="badgeRow">Badge <select id="badge"></select></label>
-</section>
-<section id="fx"></section>
-<h2>Stocks</h2>
-<section id="stocks"></section>
-<form id="add"><input id="sym" placeholder="Agregar ticker (ej. AAPL)" maxlength="12" autocomplete="off"><button>+</button></form>
-<footer>Datos con demora. No es asesoramiento financiero. Sin tracking.</footer>
+<header>
+  <div class="brand"><i>$</i><b>Cotiza</b></div>
+  <nav>
+    <button data-v="fxView" class="on">Dólar</button>
+    <button data-v="stView">Stocks</button>
+    <button data-v="settings">Ajustes</button>
+  </nav>
+</header>
+<main>
+  <section id="fxView"><div id="fx"></div></section>
+  <section id="stView" hidden>
+    <div id="stocks"></div>
+    <form id="add"><input id="sym" placeholder="Agregar ticker (ej. AAPL)" maxlength="12" autocomplete="off"><button>Agregar</button></form>
+  </section>
+  <section id="settings" hidden>
+    <label>Mi moneda <select id="base"></select></label>
+    <label>Comparar con <select id="quote"></select></label>
+    <label>Número en el ícono <select id="badgeOn"><option value="0">No</option><option value="1">Sí</option></select></label>
+    <label id="badgeRow">Dólar del ícono <select id="badge"></select></label>
+    <label>Stocks desde <select id="provider"><option value="yahoo">Yahoo (sin key)</option><option value="finnhub">Finnhub (tu key)</option></select></label>
+    <label id="keyRow" hidden>API key <input id="key" type="password" placeholder="Finnhub key" autocomplete="off"></label>
+  </section>
+</main>
+<footer><span id="upd"></span><span>Datos con demora · Sin tracking</span></footer>
 <script src="common.js"></script><script src="popup.js"></script>
 </body></html>

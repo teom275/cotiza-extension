@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Cotiza",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Dólar y stocks en tu barra. Sin tracking, sin cuentas, 100% open source.",
   "permissions": ["storage", "alarms"],
   "host_permissions": [

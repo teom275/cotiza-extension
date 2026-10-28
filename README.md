@@ -12,7 +12,7 @@ Extensión de navegador (Chrome y Firefox) con la cotización del dólar y tus s
 - Permisos: `storage`, `alarms` y los 3 hosts de arriba. Nada más.
 
 ## Recursos
-Sin build, sin frameworks. Un alarm cada 5 min actualiza el badge; el popup solo consulta al abrirse si el caché tiene más de 60 s.
+Sin build, sin frameworks. El número en el ícono viene desactivado; si lo activás, un alarm cada 5 min lo actualiza; el popup solo consulta al abrirse si el caché tiene más de 60 s.
 
 ## Instalar (modo desarrollo)
 - Chrome: `chrome://extensions` → Modo desarrollador → Cargar descomprimida → esta carpeta.

@@ -1,5 +1,5 @@
 // Código compartido entre background y popup. Sin dependencias.
-const DEFAULTS = { base: 'ARS', quote: 'USD', badge: 'blue', tickers: ['SPY', 'QQQ'], provider: 'yahoo', finnhubKey: '' };
+const DEFAULTS = { base: 'ARS', quote: 'USD', badge: 'blue', badgeOn: false, tickers: ['SPY', 'QQQ'], provider: 'yahoo', finnhubKey: '' };
 const TTL = 60 * 1000;
 
 const getSettings = async () => ({ ...DEFAULTS, ...(await chrome.storage.local.get(Object.keys(DEFAULTS))) });
